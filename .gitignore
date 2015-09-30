@@ -1,0 +1,10 @@
+#ignore the IntelliJ IDEA file
+.idea
+*.iml
+
+#ignore the Eclipse file
+.classpath
+.project
+
+#ignore the maven target
+target

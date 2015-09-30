@@ -1,0 +1,86 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- EagleFire -->
+    <groupId>cn.eaglefire.app</groupId>
+
+    <!-- 构件名称 -->
+    <artifactId>Provider</artifactId>
+    
+    <!-- 版本 -->
+    <version>0.0.1-SNAPSHOT</version>
+
+    <!-- 打包方式 -->
+    <packaging>jar</packaging>
+
+    <!-- 项目名称 -->
+    <name>Provider</name>
+
+    <properties>
+        <!-- 源文件编码格式 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- jdk编译源码版本 -->
+        <jdk.compile.source.version>1.7</jdk.compile.source.version>
+        <!-- jdk编译目标版本 -->
+        <jdk.compile.target.version>1.7</jdk.compile.target.version>
+        <!-- springframework版本 -->
+        <springframe.version>4.1.6.RELEASE</springframe.version>
+        <!-- junit版本 -->
+        <junit.version>4.12</junit.version>
+        <!-- log4j版本 -->
+        <log4j.version>1.2.17</log4j.version>
+        <!-- dubbo版本 -->
+        <dubbo.version>2.5.3</dubbo.version>
+        <!-- zookeeper版本 -->
+        <zookeeper.version>3.4.6</zookeeper.version>
+        <!-- zkclient版本 -->
+        <zkclient.version>0.1</zkclient.version>
+    </properties>
+
+    <!-- 依赖 -->
+    <dependencies>
+        <!-- spring context -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${springframe.version}</version>
+        </dependency>
+        <!-- junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+        </dependency>
+        <!-- log4j -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <!-- dubbo -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+            <version>${dubbo.version}</version>
+        </dependency>
+        <!-- zookeeper -->
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>${zookeeper.version}</version>
+        </dependency>
+        <!-- zkclient -->
+        <dependency>
+            <groupId>com.github.sgroschupf</groupId>
+            <artifactId>zkclient</artifactId>
+            <version>${zkclient.version}</version>
+        </dependency>
+    </dependencies>
+
+    <!-- 构建配置 -->
+    <build>
+        <finalName>Provider</finalName>
+    </build>
+
+</project>
