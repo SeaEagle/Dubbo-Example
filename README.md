@@ -64,9 +64,74 @@
 
 `运行`
 
+通过命令行cd到`zookeeper-3.4.6`目录下，运行`bin/zkServer.sh start`:
+
+	eagledeMacBook-Pro:zookeeper-3.4.6 eagle$ bin/zkServer.sh start
+	JMX enabled by default
+	Using config: /Users/eagle/ProgramTool/zookeeper/standalone/zookeeper-3.4.6/bin/../conf/zoo.cfg
+	Starting zookeeper ... STARTED
+
 `测试`
 
+运行`bin/zkCli.sh -server 127.0.0.1:2181`进行登录，登录成功之后则显示内容大致如下:
+
+	WATCHER::
+	
+	WatchedEvent state:SyncConnected type:None path:null
+	[zk: 127.0.0.1:2181(CONNECTED) 0]
+	
+运行一些简单的指令进行测试:
+
+	[zk: 127.0.0.1:2181(CONNECTED) 7] ls /
+	[zookeeper]
+	[zk: 127.0.0.1:2181(CONNECTED) 8] create /dubbo dubbo
+	Created /dubbo
+	[zk: 127.0.0.1:2181(CONNECTED) 9] ls /
+	[dubbo, zookeeper]
+	[zk: 127.0.0.1:2181(CONNECTED) 10] get /dubbo
+	dubbo
+	cZxid = 0x5a
+	ctime = Fri Oct 09 10:27:07 CST 2015
+	mZxid = 0x5a
+	mtime = Fri Oct 09 10:27:07 CST 2015
+	pZxid = 0x5a
+	cversion = 0
+	dataVersion = 0
+	aclVersion = 0
+	ephemeralOwner = 0x0
+	dataLength = 5
+	numChildren = 0
+	
+当删除一个有子节点的节点时，会提示`Node not empty`:
+
+	[zk: 127.0.0.1:2181(CONNECTED) 2] get /dubbo
+	dubbo
+	cZxid = 0x2
+	ctime = Wed Sep 30 16:56:42 CST 2015
+	mZxid = 0x2
+	mtime = Wed Sep 30 16:56:42 CST 2015
+	pZxid = 0x6
+	cversion = 1
+	dataVersion = 0
+	aclVersion = 0
+	ephemeralOwner = 0x0
+	dataLength = 5
+	numChildren = 1
+	[zk: 127.0.0.1:2181(CONNECTED) 3] delete /dubbo
+	Node not empty: /dubbo
+
+此时可以使用`rmr`指令:
+
+	[zk: 127.0.0.1:2181(CONNECTED) 5] rmr /dubbo
+
 `关闭`
+
+运行`bin/zkServer.sh stop`即可关闭:
+
+	eagledeMacBook-Pro:zookeeper-3.4.6 eagle$ bin/zkServer.sh stop
+	JMX enabled by default
+	Using config: /Users/eagle/ProgramTool/zookeeper/standalone/zookeeper-3.4.6/bin/../conf/zoo.cfg
+	Stopping zookeeper ... STOPPED
 
 #### 2. 编码
 > 说到底，还是要撸代码的……
