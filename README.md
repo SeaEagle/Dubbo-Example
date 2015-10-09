@@ -136,12 +136,155 @@
 #### 2. 编码
 > 说到底，还是要撸代码的……
 
+这个例子需要两个项目，一个为Provider，一个为Consumer
+
+**Provider项目**
+
+使用Maven构建一个简单的J2SE项目
+
+新建一个服务接口`DemoService.java`:
+
+	public interface DemoService {
+    	/**
+     	* 测试方法
+     	* @param name
+     	* @return
+     	*/
+    	String sayHello(String name);
+	}
+
+新建一个服务接口实现类`DemoServiceImpl`:
+
+	public class DemoServiceImpl implements DemoService {
+    	/**
+     	* 测试方法 - 实现
+     	* @param name
+     	* @return
+     	*/
+    	public String sayHello(String name) {
+        	return "Hello " + name;
+    	}
+	}
+
+通过Spring进行注入，并将其服务注册到ZooKeeper:
+
+	<!-- 和本地bean一样实现服务 -->
+    <bean id="demoService" class="cn.eaglefire.app.service.impl.DemoServiceImpl" />
+    
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="hello-world-app-provider"  />
+
+    <!-- 使用zookeeper广播注册中心暴露服务地址 -->
+    <dubbo:registry address="zookeeper://127.0.0.1:2181" />
+
+    <!-- 用dubbo协议在20880端口暴露服务 -->
+    <dubbo:protocol name="dubbo" port="20880" />
+
+    <!-- 声明需要暴露的服务接口 -->
+    <dubbo:service interface="cn.eaglefire.app.service.DemoService" ref="demoService" />
+
+**Consumer项目**
+
+使用Maven构建一个简单的J2SE项目
+
+新建一个服务接口`DemoService.java`:
+
+	public interface DemoService {
+    	/**
+     	* 测试方法
+     	* @param name
+     	* @return
+     	*/
+    	String sayHello(String name);
+	}
+
+通过Spring把注册到ZooKeeper的服务注入进来:
+
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+    <dubbo:registry address="zookeeper://127.0.0.1:2181" />
+
+    <!-- 生成远程服务代理，可以像使用本地bean一样使用demoService -->
+    <dubbo:reference id="demoService" interface="cn.eaglefire.app.service.DemoService" />
+
+**项目之间的连接点**
+
+可以很明显的看到，在两个项目中都必须有服务接口`DemoService.java`，在实际开发应用中，这个接口将打包在一个jar包，并提供给Provider和Consumer两个项目使用，Provider对接口进行实现并注册到ZooKeeper，而Consumer在到ZooKeeper中寻找对应的接口实现。
 
 #### 3. 测试
 > 不测试一下，怎么知道做得对不对
 
+**Provider项目**
+
+编写个主方法并直接运行，运行之后将在ZooKeeper中`注册`接口实现:
+
+	public class Provider {
+    	/**
+     	* 主方法
+     	* @param args
+     	* @throws Exception
+     	*/
+    	public static void main(String[] args) throws Exception {
+        	//
+        	System.out.println("Begin to load");
+        	// 加载Spring配置文件
+        	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[] {"spring/ApplicationContext.xml"});
+        	context.start();
+        	//
+        	System.out.println("End to load");
+        	// 为保证服务一直开着，利用输入流的阻塞来模拟
+        	System.in.read();
+    	}
+	}
+
+运行结果:
+
+	Connected to the target VM, address: '127.0.0.1:50305', transport: 'socket'
+	Begin to load
+	log4j:WARN No appenders could be found for logger (org.springframework.core.env.StandardEnvironment).
+	log4j:WARN Please initialize the log4j system properly.
+	log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+	End to load
+
+**Consumer项目**
+
+编写个主方法并直接运行，运行之后将在ZooKeeper中`寻找`接口实现:
+
+	public class Consumer {
+    	/**
+     	* 主方法
+     	* @param args
+     	* @throws Exception
+     	*/
+    	public static void main(String[] args) throws Exception {
+        	//
+        	System.out.println("Begin to load");
+        	// 加载Spring配置文件
+        	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[] {"spring/ApplicationContext.xml"});
+        	context.start();
+        	//
+        	System.out.println("End to load");
+
+        	// 调用远程方法
+        	DemoService demoService = (DemoService)context.getBean("demoService");
+        	String result = demoService.sayHello("Eagle");
+        	System.out.println("The result is: "+result);
+
+        	// 为保证服务一直开着，利用输入流的阻塞来模拟
+        	System.in.read();
+    	}
+	}
+
+运行结果:
+
+	Connected to the target VM, address: '127.0.0.1:50309', transport: 'socket'
+	Begin to load
+	log4j:WARN No appenders could be found for logger (org.springframework.core.env.StandardEnvironment).
+	log4j:WARN Please initialize the log4j system properly.
+	log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+	End to load
+	The result is: Hello Eagle
 
 #### 5. 结语
 >
-欢迎指正，互相交流
+本教程到此结束，欢迎指正，互相交流
 
