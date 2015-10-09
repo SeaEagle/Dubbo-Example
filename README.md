@@ -2,7 +2,9 @@
 
 >
 作者：Eagle<br/><br/>
+更新时间: 2015年10月07日<br/><br/>
 此教程参考阿里巴巴Dubbo官方网站（<http://dubbo.io>）的例子进行编写<br/><br/>
+此教程提供PDF文档下载: <https://github.com/SeaEagle/Dubbo-Example/blob/master/dubbo-example.pdf><br/><br/>
 代码在提交Github时已通过测试，运行无误<br/><br/>
 版权所有，未经允许，请勿随意转载。
 
@@ -41,7 +43,7 @@
 
 `获取`
 
-先到官网(<http://zookeeper.apache.org>)下载`stable`版本的`Release`包，发布此教程时，笔者使用的是3.4.6版本。
+先到官网( <http://zookeeper.apache.org> )下载`stable`版本的`Release`包，发布此教程时，笔者使用的是3.4.6版本。
 
 `安装`
 
