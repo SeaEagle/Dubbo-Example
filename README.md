@@ -38,7 +38,39 @@
 
 **简单介绍ZooKeeper的安装及配置**
 
+`获取`
 
+先到官网(<http://zookeeper.apache.org>)下载`stable`版本的`Release`包，发布此教程时，笔者使用的是3.4.6版本。
+<br/><br/><br/>
+
+`安装`
+
+将下载下来的包`zookeeper-3.4.6.tar.gz`解压，得到`zookeeper-3.4.6`文件夹之后，将其文件夹复制到个人喜好的位置。
+<br/><br/><br/>
+
+`配置` ( *此处在展示单机配置，关于集群配置可自行查阅文档* )
+
+在与文件夹`zookeeper-3.4.6`同个目录下，创建三个文件夹，分别是`data`，`datalog`，`logs`:
+
+	eagledeMacBook-Pro:standalone eagle$ ls
+	data		datalog		logs		zookeeper-3.4.6
+
+进入文件夹`zookeeper-3.4.6`下的conf目录，复制`zoo_sample.cfg`文件，并将其命名为`zoo.cfg`，然后打开`zoo.cfg`文件进行编辑:
+
+	默认使用的是`clientPort=2181`，此处暂不要对其修改，以免无法运行笔者提供的代码。
+	
+在`zoo.cfg`文件里添加两个配置，分别是dataDir和dataLogDir，并指向刚刚创建的data目录和datalog目录对应的路径，如:
+
+	dataDir=/Users/eagle/ProgramTool/zookeeper/standalone/data
+	dataLogDir=/Users/eagle/ProgramTool/zookeeper/standalone/datalog
+
+<br/>
+
+`运行`
+
+`测试`
+
+`关闭`
 
 #### 2. 编码
 > 说到底，还是要撸代码的……
