@@ -41,12 +41,10 @@
 `获取`
 
 先到官网(<http://zookeeper.apache.org>)下载`stable`版本的`Release`包，发布此教程时，笔者使用的是3.4.6版本。
-<br/><br/><br/>
 
 `安装`
 
 将下载下来的包`zookeeper-3.4.6.tar.gz`解压，得到`zookeeper-3.4.6`文件夹之后，将其文件夹复制到个人喜好的位置。
-<br/><br/><br/>
 
 `配置` ( *此处在展示单机配置，关于集群配置可自行查阅文档* )
 
@@ -63,8 +61,6 @@
 
 	dataDir=/Users/eagle/ProgramTool/zookeeper/standalone/data
 	dataLogDir=/Users/eagle/ProgramTool/zookeeper/standalone/datalog
-
-<br/>
 
 `运行`
 
