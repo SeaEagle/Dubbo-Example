@@ -1,8 +1,8 @@
 # Dubbo-Example
 
 >
-作者：Eagle<br/><br/>
-更新时间: 2015年10月07日<br/><br/>
+作者：海鹰<br/><br/>
+更新时间: 2015年10月8日<br/><br/>
 此教程参考阿里巴巴Dubbo官方网站（<http://dubbo.io>）的例子进行编写<br/><br/>
 此教程提供PDF文档下载: <https://github.com/SeaEagle/Dubbo-Example/blob/master/dubbo-example.pdf><br/><br/>
 代码在提交Github时已通过测试，运行无误<br/><br/>
@@ -49,7 +49,7 @@
 
 将下载下来的包`zookeeper-3.4.6.tar.gz`解压，得到`zookeeper-3.4.6`文件夹之后，将其文件夹复制到个人喜好的位置。
 
-`配置` ( *此处在展示单机配置，关于集群配置可自行查阅文档* )
+`配置` ( *此处只展示单机配置，关于集群配置可自行查阅文档* )
 
 在与文件夹`zookeeper-3.4.6`同个目录下，创建三个文件夹，分别是`data`，`datalog`，`logs`:
 
